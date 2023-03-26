@@ -88,19 +88,16 @@ namespace Server
 
             if (position == null)
             {
-                if (buffer.Length > 0)
-                {
-                    line = buffer.Slice(0, buffer.Length);
-                    buffer = buffer.Slice(buffer.Length);
-                    return true;
-                }
-
                 line = default;
                 return false;
             }
+            else
+            {
+                position = buffer.GetPosition(1, position.Value);
+            }
 
             line = buffer.Slice(0, position.Value);
-            buffer = buffer.Slice(buffer.GetPosition(1, position.Value));
+            buffer = buffer.Slice(position.Value);
             return true;
         }
 
